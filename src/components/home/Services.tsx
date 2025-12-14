@@ -32,7 +32,7 @@ const services = [
         title: "Électricité",
         desc: "Mise aux normes et éclairage.",
         className: "",
-        imageUrl: "https://images.unsplash.com/photo-1555963966-963462978555?auto=format&fit=crop&q=80&w=800"
+        imageUrl: "/images/electricite.png"
     },
     {
         icon: Hammer,
