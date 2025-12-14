@@ -1,29 +1,18 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
+import Slideshow from "@/components/ui/slideshow";
 
 export default function Hero() {
     return (
         <section className="relative h-screen w-full overflow-hidden">
-            {/* Background Image with Overlay */}
+            {/* Background Slideshow */}
             <div className="absolute inset-0 z-0">
-                <Image
-                    src="/images/hero-bg.png"
-                    alt="Rénovation Salle de Bain Luxe"
-                    fill
-                    className="object-cover transition-transform hover:scale-105"
-                    style={{ transitionDuration: "20s" }}
-                    priority
-                    quality={90}
-                />
-                <div className="absolute inset-0 bg-black/50" /> {/* Darker overlay */}
-                <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/60 to-transparent" /> {/* Top gradient for Nav */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-90" /> {/* Bottom fade */}
+                <Slideshow showText={false} />
             </div>
 
+            {/* Content Overlay */}
             <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-start">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
