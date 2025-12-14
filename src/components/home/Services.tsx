@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Hammer, Paintbrush, Zap, Droplets, BrickWall, BoxSelect, Eraser, Ruler, ScanLine, Home, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Hammer, Paintbrush, Zap, Droplets, BrickWall, BoxSelect, Eraser, Ruler, ScanLine, Home, ArrowUpRight, X, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -10,6 +11,7 @@ const services = [
         icon: Home,
         title: "Rénovation Totale",
         desc: "Transformation complète de votre habitat.",
+        details: "Nous prenons en charge l'intégralité de votre projet de rénovation, de la démolition aux finitions. Notre équipe coordonne tous les corps de métier pour vous livrer un chantier clé en main, respectant vos délais et votre budget. Idéal pour les remises à neuf d'appartements ou de maisons anciennes.",
         className: "md:col-span-2 md:row-span-2",
         imageUrl: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1000"
     },
@@ -17,6 +19,7 @@ const services = [
         icon: Paintbrush,
         title: "Peinture Intérieure",
         desc: "Finitions soignées et décors.",
+        details: "Nos peintres experts utilisent des produits de haute qualité pour sublimer vos murs et plafonds. Nous proposons une large gamme de finitions (mate, satinée, laquée) et d'effets décoratifs pour créer l'ambiance qui vous ressemble.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=800"
     },
@@ -24,6 +27,7 @@ const services = [
         icon: Droplets,
         title: "Plomberie",
         desc: "Installation et rénovation sanitaire.",
+        details: "Installation de sanitaires, création de salles de bain, rénovation de cuisines ou dépannage d'urgence. Nos plombiers qualifiés assurent des travaux conformes aux normes en vigueur pour votre confort et votre sécurité.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800"
     },
@@ -31,6 +35,7 @@ const services = [
         icon: Zap,
         title: "Électricité",
         desc: "Mise aux normes et éclairage.",
+        details: "Mise en sécurité, rénovation complète de votre installation électrique, pose d'éclairages architecturaux. Nous intervenons dans le respect strict de la norme NF C 15-100 pour garantir la sécurité de votre habitat.",
         className: "",
         imageUrl: "/images/electricite.png"
     },
@@ -38,6 +43,7 @@ const services = [
         icon: Hammer,
         title: "Menuiserie",
         desc: "Sur mesure et standard.",
+        details: "Pose de fenêtres, portes, placards sur mesure, parquets ou terrasses bois. Nos menuisiers allient esthétisme et isolation performante pour valoriser votre intérieur et votre extérieur.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1620619767323-b95a89183081?auto=format&fit=crop&q=80&w=800"
     },
@@ -45,6 +51,7 @@ const services = [
         icon: BoxSelect,
         title: "Carrelage & Faïence",
         desc: "Pose experte tous formats.",
+        details: "Pose de carrelage grand format, mosaïque, faïence de salle de bain. Nous assurons une préparation minutieuse des supports et une pose soignée pour un résultat durable et esthétique.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800"
     },
@@ -52,6 +59,7 @@ const services = [
         icon: BrickWall,
         title: "Maçonnerie",
         desc: "Gros œuvre et petites reprises.",
+        details: "Ouverture de murs porteurs, création de cloisons, chapes, dalles béton ou aménagements extérieurs. Notre savoir-faire en maçonnerie générale est le socle de la solidité de votre rénovation.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&q=80&w=800"
     },
@@ -59,6 +67,7 @@ const services = [
         icon: Eraser,
         title: "Isolation",
         desc: "Confort thermique et phonique.",
+        details: "Isolation des combles, des murs par l'intérieur (ITI). Nous vous aidons à améliorer la performance énergétique de votre logement et à réduire vos factures de chauffage.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800"
     },
@@ -66,6 +75,7 @@ const services = [
         icon: ScanLine,
         title: "Cloison",
         desc: "Aménagement des espaces.",
+        details: "Redistribution des pièces, création de séparations, doublage des murs. Nous modifions l'agencement de votre espace de vie pour l'adapter à vos nouveaux besoins et modes de vie.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1531835551805-16d864c8d311?auto=format&fit=crop&q=80&w=800"
     },
@@ -73,12 +83,15 @@ const services = [
         icon: Ruler,
         title: "Façade",
         desc: "Ravalement et peinture extérieure.",
+        details: "Nettoyage, traitement et ravalement de vos façades. Nous redonnons de l'éclat à votre maison tout en la protégeant durablement contre les intempéries et les agressions extérieures.",
         className: "md:col-span-2",
         imageUrl: "https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&q=80&w=1000"
     },
 ];
 
 export default function Services() {
+    const [selectedService, setSelectedService] = useState<(typeof services)[0] | null>(null);
+
     return (
         <section className="py-24 bg-background relative overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">
@@ -93,10 +106,16 @@ export default function Services() {
                     {services.map((service, index) => (
                         <motion.div
                             key={index}
+                            layoutId={`card-${service.title}`}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.05 }}
+                            transition={{
+                                layout: { duration: 0.25, ease: "easeOut" }, // Fast closing animation (shrinking back)
+                                opacity: { duration: 0.5, delay: index * 0.05 },
+                                scale: { duration: 0.5 }
+                            }}
+                            onClick={() => setSelectedService(service)}
                             className={cn(
                                 "group rounded-3xl overflow-hidden relative cursor-pointer",
                                 service.className
@@ -138,6 +157,103 @@ export default function Services() {
                     ))}
                 </div>
             </div>
+
+            <AnimatePresence>
+                {selectedService && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                            transition={{ duration: 0.3 }}
+                            onClick={() => setSelectedService(null)}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            layoutId={`card-${selectedService.title}`}
+                            transition={{
+                                layout: { type: "spring", stiffness: 300, damping: 30 }, // Smooth opening
+                                opacity: { duration: 0.2 }
+                            }}
+                            className="w-full max-w-2xl bg-white rounded-3xl overflow-hidden relative z-10 shadow-2xl flex flex-col max-h-[90vh]"
+                        >
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setSelectedService(null)}
+                                className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/70 transition-colors border border-white/10"
+                            >
+                                <X size={20} />
+                            </button>
+
+                            {/* Modal Header Image */}
+                            <div className="relative h-64 sm:h-80 w-full shrink-0">
+                                <Image
+                                    src={selectedService.imageUrl}
+                                    alt={selectedService.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+
+                                <div className="absolute bottom-4 left-6 sm:bottom-6 sm:left-8">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+                                            <selectedService.icon size={20} />
+                                        </div>
+                                        <div className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-xs font-medium text-white">
+                                            Détails du service
+                                        </div>
+                                    </div>
+                                    <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                                        {selectedService.title}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            {/* Modal Content */}
+                            <div className="p-6 sm:p-8 overflow-y-auto">
+                                <p className="text-xl text-zinc-600 mb-6 leading-relaxed">
+                                    {selectedService.details}
+                                </p>
+
+                                <div className="space-y-4">
+                                    <h4 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider">Pourquoi nous choisir ?</h4>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {[
+                                            "Expertise certifiée",
+                                            "Devis gratuit & détaillé",
+                                            "Respect des délais",
+                                            "Garantie décennale",
+                                            "Matériaux de qualité",
+                                            "Suivi de chantier"
+                                        ].map((item, i) => (
+                                            <div key={i} className="flex items-center gap-3 text-zinc-700">
+                                                <CheckCircle2 size={18} className="text-primary shrink-0" />
+                                                <span className="text-sm">{item}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 flex justify-end">
+                                    <button
+                                        onClick={() => {
+                                            setSelectedService(null);
+                                            // Optional: Navigate to contact or scroll to contact
+                                            const contactSection = document.getElementById('contact');
+                                            if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+                                        }}
+                                        className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-xl font-medium transition-colors flex items-center gap-2"
+                                    >
+                                        Demander un devis
+                                        <ArrowUpRight size={18} />
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }
