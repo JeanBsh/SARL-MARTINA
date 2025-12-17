@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={cn(
+      <body suppressHydrationWarning className={cn(
         "min-h-screen bg-background font-sans antialiased",
         interTight.variable,
         playfair.variable

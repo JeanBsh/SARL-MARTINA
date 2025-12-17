@@ -23,8 +23,7 @@ export default function Footer() {
                             <h3 className="text-xl font-bold tracking-tight text-white">SARL MARTINA</h3>
                         </div>
                         <p className="text-sm leading-relaxed max-w-sm text-gray-400">
-                            Entreprise de rénovation tous corps d'état basée à Vitry-sur-Seine.
-                            Qualité, respect des délais et finitions haut de gamme.
+                            SARL MARTINA réalise vos travaux TCE en rénovation comme en construction neuve : coordination de chantier, finitions haut de gamme, délais maîtrisés. Île-de-France et au-delà.
                         </p>
                     </div>
 

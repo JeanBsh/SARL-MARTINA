@@ -21,7 +21,7 @@ const services = [
         desc: "Finitions soignées et décors.",
         details: "Nos peintres experts utilisent des produits de haute qualité pour sublimer vos murs et plafonds. Nous proposons une large gamme de finitions (mate, satinée, laquée) et d'effets décoratifs pour créer l'ambiance qui vous ressemble.",
         className: "",
-        imageUrl: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=800"
+        imageUrl: "/images/peinture.jpg"
     },
     {
         icon: Droplets,
@@ -29,7 +29,7 @@ const services = [
         desc: "Installation et rénovation sanitaire.",
         details: "Installation de sanitaires, création de salles de bain, rénovation de cuisines ou dépannage d'urgence. Nos plombiers qualifiés assurent des travaux conformes aux normes en vigueur pour votre confort et votre sécurité.",
         className: "",
-        imageUrl: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800"
+        imageUrl: "/images/plomberie.jpg"
     },
     {
         icon: Zap,
@@ -45,7 +45,7 @@ const services = [
         desc: "Sur mesure et standard.",
         details: "Pose de fenêtres, portes, placards sur mesure, parquets ou terrasses bois. Nos menuisiers allient esthétisme et isolation performante pour valoriser votre intérieur et votre extérieur.",
         className: "",
-        imageUrl: "https://images.unsplash.com/photo-1620619767323-b95a89183081?auto=format&fit=crop&q=80&w=800"
+        imageUrl: "https://images.unsplash.com/photo-1645651964715-d200ce0939cc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         icon: BoxSelect,
@@ -53,7 +53,7 @@ const services = [
         desc: "Pose experte tous formats.",
         details: "Pose de carrelage grand format, mosaïque, faïence de salle de bain. Nous assurons une préparation minutieuse des supports et une pose soignée pour un résultat durable et esthétique.",
         className: "",
-        imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800"
+        imageUrl: "https://images.unsplash.com/photo-1585773817924-d025be342055?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         icon: BrickWall,
@@ -69,7 +69,7 @@ const services = [
         desc: "Confort thermique et phonique.",
         details: "Isolation des combles, des murs par l'intérieur (ITI). Nous vous aidons à améliorer la performance énergétique de votre logement et à réduire vos factures de chauffage.",
         className: "",
-        imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800"
+        imageUrl: "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         icon: ScanLine,
@@ -78,14 +78,6 @@ const services = [
         details: "Redistribution des pièces, création de séparations, doublage des murs. Nous modifions l'agencement de votre espace de vie pour l'adapter à vos nouveaux besoins et modes de vie.",
         className: "",
         imageUrl: "https://images.unsplash.com/photo-1531835551805-16d864c8d311?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-        icon: Ruler,
-        title: "Façade",
-        desc: "Ravalement et peinture extérieure.",
-        details: "Nettoyage, traitement et ravalement de vos façades. Nous redonnons de l'éclat à votre maison tout en la protégeant durablement contre les intempéries et les agressions extérieures.",
-        className: "md:col-span-2",
-        imageUrl: "https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&q=80&w=1000"
     },
 ];
 
@@ -127,6 +119,7 @@ export default function Services() {
                                     src={service.imageUrl}
                                     alt={service.title}
                                     fill
+                                    priority={index === 0}
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />

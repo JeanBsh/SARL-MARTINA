@@ -8,23 +8,23 @@ import { Button } from "@/components/ui/button";
 
 const slides = [
     {
-        img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2664&auto=format&fit=crop",
+        img: "/images/img (9).jpeg",
         text: ["ART DE VIVRE", "MODERNE"],
     },
     {
-        img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2666&auto=format&fit=crop",
+        img: "/images/img (5).jpeg",
         text: ["CONCEPTION", "SUR MESURE"],
     },
     {
-        img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop",
+        img: "/images/img (13).jpeg",
         text: ["ELEGANCE", "INTEMPORELLE"],
     },
     {
-        img: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2670&auto=format&fit=crop",
+        img: "/images/img (15).jpeg",
         text: ["LUMIERE", "ET ESPACE"],
     },
     {
-        img: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=2670&auto=format&fit=crop",
+        img: "/images/img (2).jpeg",
         text: ["FINITIONS", "D'EXCEPTION"],
     },
 ];

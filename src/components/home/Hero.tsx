@@ -10,6 +10,7 @@ export default function Hero() {
             {/* Background Slideshow */}
             <div className="absolute inset-0 z-0">
                 <Slideshow showText={false} />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
             </div>
 
             {/* Content Overlay */}
@@ -26,23 +27,24 @@ export default function Hero() {
                     </div>
 
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-serif text-white mb-8 leading-[1.1]">
-                        Construire Vos <br />
+                        TRAVAUX TCE <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
-                            Rêves d'Intérieur
+                            RÉNOVATION ET NEUF
                         </span>
                     </h1>
 
                     <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-xl font-light leading-relaxed">
-                        Excellence artisanale et design visionnaire à Vitry-sur-Seine.
-                        Nous transformons votre espace en une œuvre d'art habitable.
+                        Construire votre espace, sans stress.
+                        <br />
+                        SARL MARTINA réalise vos projets de rénovation et de construction neuve, avec un suivi clair et des finitions soignées. Intervention dans toute l’Île-de-France et au-delà.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6">
-                        <Button size="lg" className="text-lg px-8 py-7 rounded-none bg-white text-black hover:bg-gray-100 transition-all duration-300 font-medium tracking-wide" asChild>
+                        {/* <Button size="lg" className="text-lg px-8 py-7 rounded-none bg-white text-black hover:bg-gray-100 transition-all duration-300 font-medium tracking-wide" asChild>
                             <Link href="/devis">COMMENCER UN PROJET</Link>
-                        </Button>
+                        </Button> */}
                         <Button size="lg" variant="outline" className="text-lg px-8 py-7 rounded-none border-white bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm transition-all duration-300 font-medium tracking-wide" asChild>
-                            <Link href="/realisations">NOS RÉALISATIONS</Link>
+                            <Link href="/realisations">DEMANDER UN DEVIS</Link>
                         </Button>
                     </div>
                 </motion.div>

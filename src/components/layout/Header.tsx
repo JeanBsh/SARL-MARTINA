@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -104,7 +104,7 @@ export default function Header() {
             >
                 <div className="container mx-auto px-4 flex items-center justify-between">
                     {/* Brand */}
-                    <Link href="/" className="text-2xl font-bold tracking-tighter relative z-50">
+                    <Link href="/" className="text-2xl font-bold tracking-tighter relative z-50 mr-auto">
                         SARL <span className={cn("text-architectural-blue", isTransparent && "text-white")}>MARTINA</span>
                     </Link>
 
@@ -135,6 +135,13 @@ export default function Header() {
                             <Link href="/devis">Demander un devis</Link>
                         </Button>
                     </nav>
+
+                    {/* Phone Number Display - Hidden on mobile, visible on desktop - RIGHT SIDE */}
+                    <div className="hidden lg:flex items-center ml-8">
+                        <a href="tel:0170949806" className={cn("text-sm font-medium flex items-center gap-2 transition-colors hover:text-architectural-blue", isTransparent ? "text-white" : "text-foreground")}>
+                            <Phone className="w-4 h-4" /> 01 70 94 98 06
+                        </a>
+                    </div>
 
                     {/* Mobile Toggle Button */}
                     <button
