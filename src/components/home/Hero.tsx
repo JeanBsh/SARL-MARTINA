@@ -6,7 +6,7 @@ import Slideshow from "@/components/ui/slideshow";
 
 export default function Hero() {
     return (
-        <section className="relative h-screen w-full overflow-hidden">
+        <section className="relative h-[100dvh] w-full overflow-hidden">
             {/* Background Slideshow */}
             <div className="absolute inset-0 z-0">
                 <Slideshow showText={false} />

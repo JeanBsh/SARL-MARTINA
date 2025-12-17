@@ -46,7 +46,7 @@ export default function Slideshow({ showText = true }: { showText?: boolean }) {
     }, [nextSlide]);
 
     return (
-        <div className="relative h-screen w-full overflow-hidden bg-black text-white">
+        <div className="relative h-[100dvh] w-full overflow-hidden bg-black text-white">
             {slides.map((slide, i) => (
                 <div
                     key={i}
@@ -71,7 +71,7 @@ export default function Slideshow({ showText = true }: { showText?: boolean }) {
                                 {slide.text.map((t, j) => (
                                     <span
                                         key={j}
-                                        className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter uppercase text-center opacity-0 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-forwards"
+                                        className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter uppercase text-center opacity-0 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-forwards will-change-[transform,opacity]"
                                         style={{ animationDelay: `${300 + j * 150}ms`, animationFillMode: 'forwards' }}
                                     >
                                         {t}
