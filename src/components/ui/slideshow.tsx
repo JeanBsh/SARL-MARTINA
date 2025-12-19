@@ -83,30 +83,9 @@ export default function Slideshow({ showText = true }: { showText?: boolean }) {
                 </div>
             ))}
 
-            {/* Controls */}
-            <div className="absolute bottom-12 left-12 flex gap-4 z-30">
-                <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={prevSlide}
-                    className="rounded-full bg-transparent border-white/20 text-white hover:bg-white/10 hover:text-white transition-colors"
-                >
-                    <ArrowLeft className="h-5 w-5" />
-                </Button>
-                <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={nextSlide}
-                    className="rounded-full bg-transparent border-white/20 text-white hover:bg-white/10 hover:text-white transition-colors"
-                >
-                    <ArrowRight className="h-5 w-5" />
-                </Button>
-            </div>
 
-            {/* Counter */}
-            <div className="absolute bottom-12 right-12 z-30 text-white font-mono text-lg tracking-widest">
-                0{current + 1} / 0{slides.length}
-            </div>
+
+
         </div>
     );
 }

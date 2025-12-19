@@ -40,7 +40,7 @@ export default function BeforeAfter() {
     const [direction, setDirection] = useState(0);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-    const currentProject = projects[currentIndex];
+    const currentProject = projects[0]; // Always show first project only
 
     // Navigation handlers
     const nextProject = () => {
@@ -140,34 +140,14 @@ export default function BeforeAfter() {
                             </div>
                         </div>
 
-                        {/* Arrows for Navigation (Click propagation stopped) */}
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 z-20 opacity-0 hover:opacity-100 transition-opacity duration-300 md:opacity-100">
-                            <Button
-                                variant="secondary"
-                                size="icon"
-                                className="rounded-full bg-white/20 hover:bg-white/40 text-white border-none h-12 w-12 backdrop-blur-sm"
-                                onClick={(e) => { e.stopPropagation(); prevProject(); }}
-                            >
-                                <ChevronLeft className="h-6 w-6" />
-                            </Button>
-                        </div>
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-4 z-20 opacity-0 hover:opacity-100 transition-opacity duration-300 md:opacity-100">
-                            <Button
-                                variant="secondary"
-                                size="icon"
-                                className="rounded-full bg-white/20 hover:bg-white/40 text-white border-none h-12 w-12 backdrop-blur-sm"
-                                onClick={(e) => { e.stopPropagation(); nextProject(); }}
-                            >
-                                <ChevronRight className="h-6 w-6" />
-                            </Button>
-                        </div>
+
                     </div>
 
                     {/* Bottom Controls */}
                     <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="text-center md:text-left">
                             <h3 className="text-2xl font-bold">{currentProject.title}</h3>
-                            <p className="text-muted-foreground">Projet {currentIndex + 1} / {projects.length}</p>
+                            <p className="text-muted-foreground">{currentProject.category}</p>
                         </div>
 
                         {/* Toggle Buttons */}
@@ -196,23 +176,11 @@ export default function BeforeAfter() {
                             </button>
                         </div>
 
-                        {/* Desktop Navigation Helper */}
-                        <div className="hidden md:flex gap-2">
-                            <div className="flex gap-1.5">
-                                {projects.map((_, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => {
-                                            setDirection(idx > currentIndex ? 1 : -1);
-                                            setCurrentIndex(idx);
-                                        }}
-                                        className={cn(
-                                            "h-2 rounded-full transition-all duration-300",
-                                            currentIndex === idx ? "w-8 bg-primary" : "w-2 bg-primary/20 hover:bg-primary/40"
-                                        )}
-                                    />
-                                ))}
-                            </div>
+                        {/* Link to Realisations */}
+                        <div className="flex justify-center md:justify-end">
+                            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                                <a href="/realisations">Voir nos réalisations</a>
+                            </Button>
                         </div>
                     </div>
                 </div>

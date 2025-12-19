@@ -55,8 +55,8 @@ const config = {
                 },
                 // SARL MARTINA Custom tokens
                 architectural: {
-                    blue: "#0056b3",
-                    DEFAULT: "#0056b3",
+                    blue: "#0B2943",
+                    DEFAULT: "#0B2943",
                 },
                 gold: {
                     DEFAULT: "#D4AF37",

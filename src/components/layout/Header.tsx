@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
@@ -104,8 +105,16 @@ export default function Header() {
             >
                 <div className="container mx-auto px-4 flex items-center justify-between">
                     {/* Brand */}
-                    <Link href="/" className="text-2xl font-bold tracking-tighter relative z-50 mr-auto">
-                        SARL <span className={cn("text-architectural-blue", isTransparent && "text-white")}>MARTINA</span>
+                    <Link href="/" className="relative z-50 mr-auto flex items-center gap-2">
+                        <div className="relative h-12 w-32 md:h-14 md:w-40">
+                            <Image
+                                src="/logo.png"
+                                alt="SARL MARTINA"
+                                fill
+                                className={cn("object-contain transition-all duration-300", isTransparent && "brightness-0 invert")}
+                                priority
+                            />
+                        </div>
                     </Link>
 
                     {/* Desktop Nav */}
@@ -138,7 +147,8 @@ export default function Header() {
 
                     {/* Phone Number Display - Hidden on mobile, visible on desktop - RIGHT SIDE */}
                     <div className="hidden lg:flex items-center ml-8">
-                        <a href="tel:0170949806" className={cn("text-sm font-medium flex items-center gap-2 transition-colors hover:text-architectural-blue", isTransparent ? "text-white" : "text-foreground")}>
+                        <a href="tel:0170949806" className={cn("text-sm font-medium flex items-center gap-2 transition-colors",
+                            isTransparent ? "text-white hover:text-gray-200" : "text-foreground hover:text-architectural-blue")}>
                             <Phone className="w-4 h-4" /> 01 70 94 98 06
                         </a>
                     </div>
@@ -181,8 +191,15 @@ export default function Header() {
                         >
                             {/* Drawer Header */}
                             <div className="flex items-center justify-between mb-12 shrink-0">
-                                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold tracking-tighter text-black">
-                                    SARL <span className="text-architectural-blue">MARTINA</span>
+                                <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                                    <div className="relative h-10 w-28">
+                                        <Image
+                                            src="/logo.png"
+                                            alt="SARL MARTINA"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
                                 </Link>
 
                                 <button

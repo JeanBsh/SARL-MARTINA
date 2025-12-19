@@ -12,7 +12,7 @@ export const formSchema = z.object({
     address: z.string().min(5, "Adresse requise"),
     postalCode: z.string().min(5, "Code postal requis"),
     city: z.string().min(2, "Ville requise"),
-    projectType: z.enum(["renovation", "neuf", "amenagement", "depannage"], { required_error: "Type de projet requis" }),
+    projectType: z.enum(["renovation_complete", "plomberie", "electricite", "revetement", "neuf", "autre"], { required_error: "Type de projet requis" }),
 
     // Specific - Particulier
     propertyType: z.enum(["appartement", "maison", "local"]).optional(),
@@ -24,7 +24,7 @@ export const formSchema = z.object({
     companyName: z.string().optional(),
     contactName: z.string().optional(), // Can often be same as first/last name, but good to have if representative differs
     siret: z.string().optional(),
-    siteType: z.enum(["bureau", "commerce", "restaurant", "entrepot", "copro", "autre"]).optional(),
+    siteType: z.enum(["bureau", "commerce", "restaurant", "etablissement_public", "entrepot", "copro", "autre"]).optional(),
     deliveryDate: z.date().optional(), // Or string
     proConstraints: z.string().optional(),
 

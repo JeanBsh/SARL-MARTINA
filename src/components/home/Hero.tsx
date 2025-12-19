@@ -34,8 +34,6 @@ export default function Hero() {
                     </h1>
 
                     <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-xl font-light leading-relaxed">
-                        Construire votre espace, sans stress.
-                        <br />
                         SARL MARTINA réalise vos projets de rénovation et de construction neuve, avec un suivi clair et des finitions soignées. Intervention dans toute l’Île-de-France et au-delà.
                     </p>
 

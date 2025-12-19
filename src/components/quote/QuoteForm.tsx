@@ -237,10 +237,12 @@ export default function QuoteForm() {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value="renovation">Rénovation</SelectItem>
+                                                        <SelectItem value="renovation_complete">Rénovation Complète</SelectItem>
+                                                        <SelectItem value="plomberie">Plomberie</SelectItem>
+                                                        <SelectItem value="electricite">Électricité</SelectItem>
+                                                        <SelectItem value="revetement">Revêtement Sol/Mur</SelectItem>
                                                         <SelectItem value="neuf">Construction Neuve</SelectItem>
-                                                        <SelectItem value="amenagement">Aménagement Intérieur</SelectItem>
-                                                        <SelectItem value="depannage">Dépannage</SelectItem>
+                                                        <SelectItem value="autre">Autre</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <FormMessage />
@@ -308,8 +310,10 @@ export default function QuoteForm() {
                                                                     <SelectItem value="bureau">Bureau</SelectItem>
                                                                     <SelectItem value="commerce">Commerce</SelectItem>
                                                                     <SelectItem value="restaurant">Restaurant</SelectItem>
+                                                                    <SelectItem value="etablissement_public">Établissement Public</SelectItem>
                                                                     <SelectItem value="entrepot">Entrepôt</SelectItem>
                                                                     <SelectItem value="copro">Copropriété</SelectItem>
+                                                                    <SelectItem value="autre">Autre</SelectItem>
                                                                 </SelectContent>
                                                             </Select>
                                                         </FormItem>

@@ -41,9 +41,9 @@ export default function AboutPage() {
                         >
                             Notre Histoire
                         </motion.span>
-                        <h1 className="text-5xl md:text-8xl font-sans font-light mb-8 text-white tracking-tighter leading-[0.9]">
+                        <h1 className="text-5xl md:text-8xl font-serif font-bold mb-8 text-white tracking-tighter leading-[0.9]">
                             L'ART DE MAGNIFIER <br />
-                            <span className="font-serif italic text-white/90">votre espace</span>
+                            <span className="font-sans font-light text-white/90">votre espace</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-white/70 leading-relaxed max-w-2xl mx-auto font-light">
                             Plus qu'une entreprise de travaux, un partenaire créatif pour réinventer votre lieu de vie.

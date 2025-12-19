@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
@@ -16,11 +17,13 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="space-y-6">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-white rounded flex items-center justify-center text-[#0f172a] font-bold text-xl font-serif">
-                                M
-                            </div>
-                            <h3 className="text-xl font-bold tracking-tight text-white">SARL MARTINA</h3>
+                        <div className="relative h-16 w-48 mb-4">
+                            <Image
+                                src="/logo.png"
+                                alt="SARL MARTINA"
+                                fill
+                                className="object-contain brightness-0 invert"
+                            />
                         </div>
                         <p className="text-sm leading-relaxed max-w-sm text-gray-400">
                             SARL MARTINA réalise vos travaux TCE en rénovation comme en construction neuve : coordination de chantier, finitions haut de gamme, délais maîtrisés. Île-de-France et au-delà.
