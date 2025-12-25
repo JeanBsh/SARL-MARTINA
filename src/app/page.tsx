@@ -1,6 +1,6 @@
 import Hero from "@/components/home/Hero";
 import Stats from "@/components/home/Stats";
-import BeforeAfter from "@/components/home/BeforeAfter";
+import RenovationGallery from "@/components/home/RenovationGallery";
 import TestimonialsEditorial from "@/components/ui/editorial-testimonial";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export default function Home() {
         </div>
       </section>
 
-      <BeforeAfter />
+      <RenovationGallery />
       <TestimonialsEditorial />
     </main>
   );

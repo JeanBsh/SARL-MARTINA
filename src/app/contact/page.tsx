@@ -34,7 +34,7 @@ export default function ContactPage() {
                         </div>
                         <h3 className="text-xl font-bold mb-2">Téléphone</h3>
                         <p className="text-muted-foreground mb-4">Du Lundi au Samedi</p>
-                        <a href="tel:0612345678" className="text-lg font-semibold hover:text-architectural-blue transition-colors">06 12 34 56 78</a>
+                        <a href="tel:0786853245" className="text-lg font-semibold hover:text-architectural-blue transition-colors">07 86 85 32 45</a>
                     </div>
 
                     <div className="flex flex-col items-center text-center p-8 bg-card border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 group">

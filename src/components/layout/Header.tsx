@@ -147,9 +147,9 @@ export default function Header() {
 
                     {/* Phone Number Display - Hidden on mobile, visible on desktop - RIGHT SIDE */}
                     <div className="hidden lg:flex items-center ml-8">
-                        <a href="tel:0170949806" className={cn("text-sm font-medium flex items-center gap-2 transition-colors",
+                        <a href="tel:0786853245" className={cn("text-sm font-medium flex items-center gap-2 transition-colors",
                             isTransparent ? "text-white hover:text-gray-200" : "text-foreground hover:text-architectural-blue")}>
-                            <Phone className="w-4 h-4" /> 01 70 94 98 06
+                            <Phone className="w-4 h-4" /> 07 86 85 32 45
                         </a>
                     </div>
 

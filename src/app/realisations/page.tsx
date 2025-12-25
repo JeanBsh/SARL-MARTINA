@@ -3,43 +3,35 @@ import BeforeAfterProject from "@/components/realisations/BeforeAfterProject";
 const projects = [
     {
         id: 1,
-        title: "Rénovation Villa Moderne",
+        title: "Rénovation complète des WC",
         category: "Rénovation Totale",
         before: "/images/img (18).jpeg",
         after: "/images/img (7).jpeg",
-        description: "Transformation complète d'une villa des années 80. Ouverture des espaces, création d'une mezzanine et modernisation des façades pour une luminosité optimale."
+        description: "Les WC ont fait l’objet d’une rénovation totale comprenant la dépose de l’existant, la reprise de la plomberie, l’habillage mural et l’installation d’équipements modernes, pour un espace fonctionnel et esthétique."
     },
     {
         id: 2,
-        title: "Appartement Haussmannien",
+        title: "Rénovation complète de salle de bain",
         category: "Intérieur & Parquets",
         before: "/images/img (14).jpeg",
         after: "/images/img (11).jpeg",
-        description: "Restauration des parquets d'époque, moulures et création d'une cuisine ouverte contemporaine s'intégrant parfaitement au charme de l'ancien."
+        description: "La salle de bain a été entièrement rénovée, incluant la modification des réseaux, la création d’une douche moderne, la pose de nouveaux revêtements, l’installation du mobilier et de l’éclairage, avec une attention particulière portée aux finitions."
     },
     {
         id: 3,
-        title: "Cuisine & Espace de Vie",
+        title: "Aménagement des combles et création d’escalier",
         category: "Cuisine",
         before: "/images/img (21).jpeg",
         after: "/images/img (16).jpeg",
-        description: "Optimisation de l'espace avec un îlot central sur mesure. Choix de matériaux nobles : marbre et bois massif pour une ambiance chaleureuse."
+        description: "L’ensemble des combles a été entièrement aménagé par nos équipes, avec la réalisation de l’isolation thermique, des structures, des réseaux électriques et des finitions intérieures. Un escalier sur mesure a été créé et installé afin d’assurer un accès sécurisé et parfaitement intégré à l’espace existant."
     },
     {
         id: 4,
-        title: "Suite Parentale Luxe",
-        category: "Chambre & SDB",
-        before: "/images/img (23).jpeg", // Placeholder
-        after: "/images/img (15).jpeg",
-        description: "Création d'une suite parentale avec salle de bain intégrée. Jeux de transparence et éclairage indirect pour une atmosphère apaisante."
-    },
-    {
-        id: 5,
-        title: "Espace Commercial",
+        title: "Création d’une cuisine sur mesure",
         category: "Professionnel",
         before: "/images/img (19).jpeg", // Placeholder
         after: "/images/img (9).jpeg",
-        description: "Réaménagement complet d'un plateau de bureaux. Création d'espaces collaboratifs et de boxs insonorisés avec cloisons vitrées."
+        description: "La cuisine a été entièrement conçue et réalisée par nos équipes, incluant la reprise des réseaux, l’électricité, l’éclairage intégré, la pose du mobilier sur mesure et des équipements. L’ensemble offre un espace moderne, fonctionnel et parfaitement optimisé, avec des finitions haut de gamme."
     }
 ];
 
@@ -50,7 +42,7 @@ export default function Realisations() {
                 <div className="text-center mb-24 max-w-3xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-bold font-serif mb-6">Nos Réalisations</h1>
                     <p className="text-xl text-muted-foreground leading-relaxed">
-                        Chaque projet est une nouvelle histoire. Découvrez comment nous transformons l'existant pour créer des lieux de vie exceptionnels.
+                        Découvrez quelques-unes de nos réalisations et le savoir-faire qui les accompagne.
                     </p>
                 </div>
 
@@ -66,6 +58,6 @@ export default function Realisations() {
                 <div className="absolute top-[10%] left-[5%] w-96 h-96 bg-blue-100 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob" />
                 <div className="absolute top-[30%] right-[10%] w-96 h-96 bg-gray-100 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob animation-delay-2000" />
             </div>
-        </main>
+        </main >
     );
 }
