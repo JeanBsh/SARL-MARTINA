@@ -25,7 +25,7 @@ export const formSchema = z.object({
     contactName: z.string().optional(), // Can often be same as first/last name, but good to have if representative differs
     siret: z.string().optional(),
     siteType: z.enum(["bureau", "commerce", "restaurant", "etablissement_public", "entrepot", "copro", "autre"]).optional(),
-    deliveryDate: z.date().optional(), // Or string
+    deliveryDate: z.string().optional(), // Input type="date" returns a string
     proConstraints: z.string().optional(),
 
     // Common - Step 3 (Details)

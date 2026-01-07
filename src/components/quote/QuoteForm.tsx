@@ -13,7 +13,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, ChevronRight, ChevronLeft, Check, Building2, User } from "lucide-react";
+import { Upload, ChevronRight, ChevronLeft, Check, Building2, User, Loader2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Label } from "@/components/ui/label";
 
 const MAX_STEPS = 3;
 
@@ -23,6 +25,10 @@ const LOTS_OPTIONS = [
 
 export default function QuoteForm() {
     const [step, setStep] = useState(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     // Watch clientType to toggle logic
     const form = useForm<FormValues>({
@@ -30,7 +36,7 @@ export default function QuoteForm() {
         defaultValues: {
             clientType: "particulier",
             lots: [],
-            // Initialize other fields to empty strings to avoid uncontrolled/controlled warnings if not using form.control properly
+            // Initialize other fields to empty strings
             firstName: "", lastName: "", email: "", phone: "", address: "", postalCode: "", city: "",
             description: "", budget: "", accessConstraints: "", proConstraints: "", contactName: "",
             companyName: "", siret: "", surface: ""
@@ -41,11 +47,46 @@ export default function QuoteForm() {
     const clientType = form.watch("clientType");
     const isPro = clientType === "professionnel";
 
-    const onSubmit = (data: FormValues) => {
-        console.log(data);
-        alert("Merci ! Votre demande de devis détaillée a été envoyée. Nous vous recontacterons sous 24h.");
-        form.reset();
-        setStep(1);
+    const onSubmit = async (data: FormValues) => {
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+        setErrorMessage(null);
+
+        try {
+            const response = await fetch('/api/send-quote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                // Ensure result is typed or access safely
+                const errorMsg = result.details || result.error || "Une erreur est survenue lors de l'envoi";
+                throw new Error(errorMsg);
+            }
+
+            setSubmitStatus('success');
+            // Optional: Scroll to success message
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Reset form after a delay if needed, or keep it to show success
+            setTimeout(() => {
+                form.reset();
+                setStep(1);
+                // setSubmitStatus('idle'); // Keep success message visible until user interacts?
+            }, 5000);
+
+        } catch (error: any) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+            setErrorMessage(error.message || "Une erreur inconnue est survenue.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const nextStep = async () => {
@@ -89,6 +130,41 @@ export default function QuoteForm() {
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                             <AnimatePresence mode="wait">
+                                {submitStatus === 'success' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0 }}
+                                        className="mb-6"
+                                    >
+                                        <Alert variant="success">
+                                            <Check className="h-4 w-4" />
+                                            <AlertTitle>Demande envoyée !</AlertTitle>
+                                            <AlertDescription>
+                                                Merci pour votre confiance. Votre demande de devis a bien été transmise.
+                                                Notre équipe vous recontactera sous 24h.
+                                            </AlertDescription>
+                                        </Alert>
+                                    </motion.div>
+                                )}
+
+                                {submitStatus === 'error' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0 }}
+                                        className="mb-6"
+                                    >
+                                        <Alert variant="destructive">
+                                            <AlertCircle className="h-4 w-4" />
+                                            <AlertTitle>Erreur</AlertTitle>
+                                            <AlertDescription>
+                                                {errorMessage || "Une erreur est survenue lors de l'envoi. Veuillez réessayer ou nous contacter par téléphone."}
+                                            </AlertDescription>
+                                        </Alert>
+                                    </motion.div>
+                                )}
+
                                 {/* STEP 1: IDENTITY */}
                                 {step === 1 && (
                                     <motion.div
@@ -460,7 +536,7 @@ export default function QuoteForm() {
                                         )} />
 
                                         <div className="space-y-3">
-                                            <FormLabel>Pièces jointes (Plans, Photos, Métrés)</FormLabel>
+                                            <Label>Pièces jointes (Plans, Photos, Métrés)</Label>
                                             <div className="border-2 border-dashed border-input hover:border-architectural-blue transition-colors rounded-xl p-8 flex flex-col items-center justify-center text-muted-foreground bg-gray-50/50 cursor-pointer group">
                                                 <div className="bg-white p-3 rounded-full shadow-sm mb-3 group-hover:scale-110 transition-transform">
                                                     <Upload className="text-architectural-blue" size={24} />
@@ -488,8 +564,20 @@ export default function QuoteForm() {
                                         Suivant <ChevronRight size={16} />
                                     </Button>
                                 ) : (
-                                    <Button type="submit" className="ml-auto gap-2 px-8 bg-green-600 hover:bg-green-700 text-white shadow-md shadow-green-200">
-                                        Envoyer ma demande <Check size={16} />
+                                    <Button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="ml-auto gap-2 px-8 bg-green-600 hover:bg-green-700 text-white shadow-md shadow-green-200"
+                                    >
+                                        {isSubmitting ? (
+                                            <>
+                                                <Loader2 className="w-4 h-4 animate-spin" /> Envoi en cours...
+                                            </>
+                                        ) : (
+                                            <>
+                                                Envoyer ma demande <Check size={16} />
+                                            </>
+                                        )}
                                     </Button>
                                 )}
                             </div>
