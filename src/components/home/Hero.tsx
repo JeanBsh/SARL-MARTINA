@@ -42,7 +42,7 @@ export default function Hero() {
                             <Link href="/devis">COMMENCER UN PROJET</Link>
                         </Button> */}
                         <Button size="lg" variant="outline" className="text-lg px-8 py-7 rounded-none border-white bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm transition-all duration-300 font-medium tracking-wide" asChild>
-                            <Link href="/realisations">DEMANDER UN DEVIS</Link>
+                            <Link href="/devis">DEMANDER UN DEVIS</Link>
                         </Button>
                     </div>
                 </motion.div>

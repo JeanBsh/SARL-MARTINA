@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Phone, Mail } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -14,7 +15,7 @@ export default function Footer() {
             </div>
 
             <div className="relative z-10 container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="space-y-6">
                         <div className="relative h-16 w-48 mb-4">
@@ -57,6 +58,25 @@ export default function Footer() {
                                 <span>Dimanche</span>
                                 <span className="text-gray-500">Fermé</span>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Contact Info */}
+                    <div className="space-y-6">
+                        <h4 className="text-lg font-bold text-white">Contact</h4>
+                        <div className="space-y-4 text-sm">
+                            <a href="tel:0786853245" className="flex items-center gap-3 hover:text-white transition-colors group">
+                                <div className="h-8 w-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                                    <Phone size={14} />
+                                </div>
+                                <span>07 86 85 32 45</span>
+                            </a>
+                            <a href="mailto:sarlmartina.tce@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors group">
+                                <div className="h-8 w-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                                    <Mail size={14} />
+                                </div>
+                                <span className="truncate">sarlmartina.tce@gmail.com</span>
+                            </a>
                         </div>
                     </div>
                 </div>

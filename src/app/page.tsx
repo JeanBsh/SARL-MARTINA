@@ -1,7 +1,7 @@
 import Hero from "@/components/home/Hero";
 import Stats from "@/components/home/Stats";
 import RenovationGallery from "@/components/home/RenovationGallery";
-import TestimonialsEditorial from "@/components/ui/editorial-testimonial";
+import GoogleMapSection from "@/components/home/GoogleMapSection";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -25,7 +25,7 @@ export default function Home() {
       </section>
 
       <RenovationGallery />
-      <TestimonialsEditorial />
+      <GoogleMapSection />
     </main>
   );
 }

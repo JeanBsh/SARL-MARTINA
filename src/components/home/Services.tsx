@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Hammer, Paintbrush, Zap, Droplets, BrickWall, BoxSelect, Eraser, Ruler, ScanLine, Home, ArrowUpRight, X, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const services = [
     {
@@ -82,6 +83,7 @@ const services = [
 ];
 
 export default function Services() {
+    const router = useRouter();
     const [selectedService, setSelectedService] = useState<(typeof services)[0] | null>(null);
 
     return (
@@ -232,9 +234,7 @@ export default function Services() {
                                     <button
                                         onClick={() => {
                                             setSelectedService(null);
-                                            // Optional: Navigate to contact or scroll to contact
-                                            const contactSection = document.getElementById('contact');
-                                            if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+                                            router.push("/devis");
                                         }}
                                         className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-xl font-medium transition-colors flex items-center gap-2"
                                     >
