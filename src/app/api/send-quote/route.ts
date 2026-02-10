@@ -107,7 +107,7 @@ export async function POST(req: Request) {
     // For production, the user should change this.
     // We will use onboarding@resend.dev for now as it works immediately for testing (only to the account owner's email).
     const data = await resend.emails.send({
-      from: 'SARL MARTINA Web <onboarding@resend.dev>',
+      from: 'SARL MARTINA Web <contact@sarlmartina.fr>',
       // IMPORTANT: For the free tier, you can ONLY send to the email configuration in your Resend account.
       // We adding RESEND_TO_EMAIL to .env.local to make this configurable.
       to: [process.env.RESEND_TO_EMAIL || 'delivered@resend.dev'],
