@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/ui/CookieConsent";
 
 
 
@@ -20,8 +21,39 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "SARL MARTINA - Rénovation Exceptionnelle",
-  description: "Entreprise de rénovation tous corps d'état à Vitry-sur-Seine. Excellence et design premium.",
+  metadataBase: new URL("https://www.sarl-martina.fr"), // Replace with actual domain
+  title: {
+    default: "SARL MARTINA - Rénovation Exceptionnelle & Design Intérieur",
+    template: "%s | SARL MARTINA"
+  },
+  description: "Expert en rénovation tous corps d'état à Vitry-sur-Seine et en Île-de-France. Maçonnerie, peinture, électricité, plomberie et design d'intérieur haut de gamme.",
+  keywords: ["Rénovation", "Bâtiment", "Architecture d'intérieur", "Travaux", "Vitry-sur-Seine", "Île-de-France", "Design", "Luxe"],
+  authors: [{ name: "SARL MARTINA" }],
+  creator: "SARL MARTINA",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: "https://www.sarl-martina.fr",
+    title: "SARL MARTINA - Rénovation d'Excellence",
+    description: "Transformez votre espace avec SARL MARTINA. Expertise technique et design raffiné pour tous vos projets de rénovation.",
+    siteName: "SARL MARTINA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SARL MARTINA - Rénovation & Design",
+    description: "Expertise et élégance pour vos travaux de rénovation.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -37,9 +69,12 @@ export default function RootLayout({
         playfair.variable
       )}>
         <SmoothScroll>
+
+
           <Header />
           {children}
           <Footer />
+          <CookieConsent />
         </SmoothScroll>
       </body>
 

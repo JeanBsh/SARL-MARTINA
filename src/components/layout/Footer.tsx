@@ -92,7 +92,12 @@ export default function Footer() {
                         <span>RCS Créteil 915 060 404</span>
                         <span>•</span>
                         <Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</Link>
+                        <span>•</span>
+                        <Link href="/politique-de-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</Link>
+                        <span>•</span>
+                        <Link href="/cgu" className="hover:text-white transition-colors">CGU</Link>
                     </div>
+
                 </div>
             </div>
         </footer>
