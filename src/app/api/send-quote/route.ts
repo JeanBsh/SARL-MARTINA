@@ -1,13 +1,43 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { formSchema } from '@/lib/schemas';
+import { quoteLimiter } from '@/lib/rate-limit';
 
-// Initialize Resend with the API key
-// Ideally, this should be in process.env.RESEND_API_KEY
-// We will check for the key inside the handler to provide a helpful error if missing.
+function escapeHtml(str: unknown): string {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
 export async function POST(req: Request) {
   try {
+    // Rate limiting
+    const forwarded = req.headers.get('x-forwarded-for');
+    const ip = forwarded?.split(',')[0]?.trim() || 'unknown';
+    const { success } = quoteLimiter.check(5, ip);
+
+    if (!success) {
+      return NextResponse.json(
+        { error: "Trop de requêtes. Veuillez réessayer dans quelques minutes." },
+        { status: 429 }
+      );
+    }
+
+    // Server-side validation with Zod
     const body = await req.json();
+    const result = formSchema.safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        { error: "Données invalides", details: result.error.flatten().fieldErrors },
+        { status: 400 }
+      );
+    }
+
     const {
       firstName, lastName, email, phone,
       clientType, companyName, siret,
@@ -16,7 +46,7 @@ export async function POST(req: Request) {
       description, budget, deadline,
       lots,
       siteType, deliveryDate, proConstraints, accessConstraints, occupied
-    } = body;
+    } = result.data;
 
     const apiKey = process.env.RESEND_API_KEY;
 
@@ -30,7 +60,32 @@ export async function POST(req: Request) {
 
     const resend = new Resend(apiKey);
 
-    // Create a detailed HTML email
+    // Escape all user inputs before HTML insertion
+    const safe = {
+      firstName: escapeHtml(firstName),
+      lastName: escapeHtml(lastName),
+      clientType: escapeHtml(clientType),
+      email: escapeHtml(email),
+      phone: escapeHtml(phone),
+      companyName: escapeHtml(companyName),
+      siret: escapeHtml(siret),
+      address: escapeHtml(address),
+      postalCode: escapeHtml(postalCode),
+      city: escapeHtml(city),
+      projectType: escapeHtml(projectType),
+      propertyType: escapeHtml(propertyType),
+      siteType: escapeHtml(siteType),
+      surface: escapeHtml(surface),
+      occupied: escapeHtml(occupied),
+      accessConstraints: escapeHtml(accessConstraints),
+      proConstraints: escapeHtml(proConstraints),
+      deadline: escapeHtml(deadline),
+      deliveryDate: escapeHtml(deliveryDate),
+      budget: escapeHtml(budget),
+      description: escapeHtml(description),
+      lots: lots?.map((l: string) => escapeHtml(l)) || [],
+    };
+
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -55,45 +110,45 @@ export async function POST(req: Request) {
           </div>
 
           <div class="section">
-            <h3>👤 Informations Client</h3>
-            <div class="field"><span class="label">Nom complet:</span> <span class="value">${firstName} ${lastName}</span></div>
-            <div class="field"><span class="label">Type:</span> <span class="value">${clientType}</span></div>
-            <div class="field"><span class="label">Email:</span> <span class="value">${email}</span></div>
-            <div class="field"><span class="label">Téléphone:</span> <span class="value">${phone}</span></div>
-            ${companyName ? `<div class="field"><span class="label">Société:</span> <span class="value">${companyName}</span></div>` : ''}
-            ${siret ? `<div class="field"><span class="label">SIRET:</span> <span class="value">${siret}</span></div>` : ''}
+            <h3>Informations Client</h3>
+            <div class="field"><span class="label">Nom complet:</span> <span class="value">${safe.firstName} ${safe.lastName}</span></div>
+            <div class="field"><span class="label">Type:</span> <span class="value">${safe.clientType}</span></div>
+            <div class="field"><span class="label">Email:</span> <span class="value">${safe.email}</span></div>
+            <div class="field"><span class="label">Téléphone:</span> <span class="value">${safe.phone}</span></div>
+            ${safe.companyName ? `<div class="field"><span class="label">Société:</span> <span class="value">${safe.companyName}</span></div>` : ''}
+            ${safe.siret ? `<div class="field"><span class="label">SIRET:</span> <span class="value">${safe.siret}</span></div>` : ''}
           </div>
 
           <div class="section">
-            <h3>📍 Lieu des Travaux</h3>
-            <div class="field"><span class="label">Adresse:</span> <span class="value">${address}</span></div>
-            <div class="field"><span class="label">Code Postal / Ville:</span> <span class="value">${postalCode} ${city}</span></div>
+            <h3>Lieu des Travaux</h3>
+            <div class="field"><span class="label">Adresse:</span> <span class="value">${safe.address}</span></div>
+            <div class="field"><span class="label">Code Postal / Ville:</span> <span class="value">${safe.postalCode} ${safe.city}</span></div>
           </div>
 
           <div class="section">
-            <h3>🏗️ Détails du Projet</h3>
-            <div class="field"><span class="label">Type de projet:</span> <span class="value">${projectType}</span></div>
-            ${propertyType ? `<div class="field"><span class="label">Type de bien:</span> <span class="value">${propertyType}</span></div>` : ''}
-            ${siteType ? `<div class="field"><span class="label">Type de local:</span> <span class="value">${siteType}</span></div>` : ''}
-            ${surface ? `<div class="field"><span class="label">Surface:</span> <span class="value">${surface} m²</span></div>` : ''}
-            ${occupied ? `<div class="field"><span class="label">Occupé:</span> <span class="value">${occupied}</span></div>` : ''}
-            ${accessConstraints ? `<div class="field"><span class="label">Contraintes Accès:</span> <span class="value">${accessConstraints}</span></div>` : ''}
-            ${proConstraints ? `<div class="field"><span class="label">Contraintes Pro:</span> <span class="value">${proConstraints}</span></div>` : ''}
-            <div class="field"><span class="label">Délai souhaité:</span> <span class="value">${deadline}</span></div>
-            ${deliveryDate ? `<div class="field"><span class="label">Date de livraison cible:</span> <span class="value">${deliveryDate}</span></div>` : ''}
-            <div class="field"><span class="label">Budget estimatif:</span> <span class="value">${budget}</span></div>
+            <h3>Détails du Projet</h3>
+            <div class="field"><span class="label">Type de projet:</span> <span class="value">${safe.projectType}</span></div>
+            ${safe.propertyType ? `<div class="field"><span class="label">Type de bien:</span> <span class="value">${safe.propertyType}</span></div>` : ''}
+            ${safe.siteType ? `<div class="field"><span class="label">Type de local:</span> <span class="value">${safe.siteType}</span></div>` : ''}
+            ${safe.surface ? `<div class="field"><span class="label">Surface:</span> <span class="value">${safe.surface} m²</span></div>` : ''}
+            ${safe.occupied ? `<div class="field"><span class="label">Occupé:</span> <span class="value">${safe.occupied}</span></div>` : ''}
+            ${safe.accessConstraints ? `<div class="field"><span class="label">Contraintes Accès:</span> <span class="value">${safe.accessConstraints}</span></div>` : ''}
+            ${safe.proConstraints ? `<div class="field"><span class="label">Contraintes Pro:</span> <span class="value">${safe.proConstraints}</span></div>` : ''}
+            <div class="field"><span class="label">Délai souhaité:</span> <span class="value">${safe.deadline}</span></div>
+            ${safe.deliveryDate ? `<div class="field"><span class="label">Date de livraison cible:</span> <span class="value">${safe.deliveryDate}</span></div>` : ''}
+            <div class="field"><span class="label">Budget estimatif:</span> <span class="value">${safe.budget}</span></div>
           </div>
 
           <div class="section">
-             <h3>🛠️ Lots Concernés</h3>
-             <div class="value">${lots && lots.length > 0 ? lots.join(', ') : 'Aucun lot spécifié'}</div>
+             <h3>Lots Concernés</h3>
+             <div class="value">${safe.lots.length > 0 ? safe.lots.join(', ') : 'Aucun lot spécifié'}</div>
           </div>
 
           <div class="section">
-            <h3>📝 Description</h3>
-            <div class="value" style="white-space: pre-wrap;">${description}</div>
+            <h3>Description</h3>
+            <div class="value" style="white-space: pre-wrap;">${safe.description}</div>
           </div>
-          
+
           <div class="footer">
             <p>Cet email a été envoyé automatiquement depuis votre formulaire de contact.</p>
           </div>
@@ -102,16 +157,10 @@ export async function POST(req: Request) {
       </html>
     `;
 
-    // Send the email
-    // IMPORTANT: 'from' must be a domain you verify in Resend, or 'onboarding@resend.dev' for testing
-    // For production, the user should change this.
-    // We will use onboarding@resend.dev for now as it works immediately for testing (only to the account owner's email).
     const data = await resend.emails.send({
       from: 'SARL MARTINA Web <contact@sarlmartina.fr>',
-      // IMPORTANT: For the free tier, you can ONLY send to the email configuration in your Resend account.
-      // We adding RESEND_TO_EMAIL to .env.local to make this configurable.
       to: [process.env.RESEND_TO_EMAIL || 'delivered@resend.dev'],
-      subject: `Nouveau devis : ${firstName} ${lastName} - ${city}`,
+      subject: `Nouveau devis : ${safe.firstName} ${safe.lastName} - ${safe.city}`,
       html: htmlContent,
       replyTo: email,
     });

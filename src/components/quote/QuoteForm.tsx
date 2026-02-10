@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, ChevronRight, ChevronLeft, Check, Building2, User, Loader2, AlertCircle } from "lucide-react";
+import { ChevronRight, ChevronLeft, Check, Building2, User, Loader2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 
@@ -535,16 +535,8 @@ export default function QuoteForm() {
                                             </FormItem>
                                         )} />
 
-                                        <div className="space-y-3">
-                                            <Label>Pièces jointes (Plans, Photos, Métrés)</Label>
-                                            <div className="border-2 border-dashed border-input hover:border-architectural-blue transition-colors rounded-xl p-8 flex flex-col items-center justify-center text-muted-foreground bg-gray-50/50 cursor-pointer group">
-                                                <div className="bg-white p-3 rounded-full shadow-sm mb-3 group-hover:scale-110 transition-transform">
-                                                    <Upload className="text-architectural-blue" size={24} />
-                                                </div>
-                                                <p className="text-sm font-medium text-gray-900">Cliquez pour ajouter des fichiers</p>
-                                                <p className="text-xs text-gray-500 mt-1">PDF, JPG, PNG (Max 10Mo)</p>
-                                                <input type="file" className="hidden" multiple accept=".pdf,.jpg,.jpeg,.png" />
-                                            </div>
+                                        <div className="p-4 bg-blue-50/50 rounded-lg border border-blue-100 text-sm text-muted-foreground">
+                                            <p>Vous pourrez joindre vos documents (plans, photos, métrés) en répondant directement à l'email de confirmation.</p>
                                         </div>
                                     </motion.div>
                                 )}

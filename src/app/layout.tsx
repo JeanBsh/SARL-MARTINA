@@ -37,11 +37,20 @@ export const metadata: Metadata = {
     title: "SARL MARTINA - Rénovation d'Excellence",
     description: "Transformez votre espace avec SARL MARTINA. Expertise technique et design raffiné pour tous vos projets de rénovation.",
     siteName: "SARL MARTINA",
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 600,
+        alt: "SARL MARTINA - Rénovation & Design Intérieur",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "SARL MARTINA - Rénovation & Design",
     description: "Expertise et élégance pour vos travaux de rénovation.",
+    images: ["/logo.png"],
   },
   robots: {
     index: true,

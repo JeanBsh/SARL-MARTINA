@@ -1,6 +1,19 @@
 import { NextResponse } from 'next/server';
+import { reviewsLimiter } from '@/lib/rate-limit';
 
-export async function GET() {
+export async function GET(req: Request) {
+    // Rate limiting
+    const forwarded = req.headers.get('x-forwarded-for');
+    const ip = forwarded?.split(',')[0]?.trim() || 'unknown';
+    const { success } = reviewsLimiter.check(30, ip);
+
+    if (!success) {
+        return NextResponse.json(
+            { error: "Trop de requêtes. Veuillez réessayer dans quelques minutes." },
+            { status: 429 }
+        );
+    }
+
     const apiKey = process.env.GOOGLE_PLACES_API_KEY;
     const placeId = process.env.GOOGLE_PLACE_ID;
 
@@ -47,7 +60,6 @@ export async function GET() {
 
         if (data.status !== "OK") {
             console.error("Google API returned status:", data.status, data.error_message);
-            // Fallback to mock data if the specific API call fails (e.g. invalid key)
             return NextResponse.json({ result: { reviews: mockReviews } });
         }
 
